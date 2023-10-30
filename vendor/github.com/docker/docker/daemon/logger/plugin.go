@@ -31,7 +31,7 @@ func RegisterPluginGetter(plugingetter getter.PluginGetter) {
 	pluginGetter = plugingetter
 }
 
-// GetDriver returns a logging driver by its name.
+// getPlugin returns a logging driver by its name.
 // If the driver is empty, it looks for the local driver.
 func getPlugin(name string, mode int) (Creator, error) {
 	p, err := pluginGetter.Get(name, extName, mode)
@@ -81,7 +81,7 @@ func makePluginCreator(name string, l logPlugin, scopePath func(s string) string
 			return nil, err
 		}
 
-		id := stringid.GenerateNonCryptoID()
+		id := stringid.GenerateRandomID()
 		a := &pluginAdapter{
 			driverName: name,
 			id:         id,
